@@ -1,8 +1,10 @@
 package Service;
 
-import Model.Customer;
+import Model.*;
 
 public interface LoginService {
-    public boolean signUp(Customer customer);
-    public Customer login(String email, String password);
+    public boolean signUpDriver(Driver driver);
+    public boolean signUpRider(Rider rider);
+    public Rider loginRider(String email, String password);
+    public Driver loginDriver(String email, String password);
 }

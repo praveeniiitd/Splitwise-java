@@ -1,23 +1,9 @@
 package Service;
 
 public class ServiceFactory {
-    private static CustomerServiceImpl customerService;
-    private static GroupServiceImpl groupService;
     private static LoginServiceImpl loginService;
-    
-    public static CustomerServiceImpl getCustomerServiceImpl() {
-        if(customerService == null) {
-            customerService = new CustomerServiceImpl();
-        }
-        return customerService;
-    } 
-
-    public static GroupServiceImpl getGroupServiceImpl() {
-        if(groupService == null) {
-            groupService = new GroupServiceImpl();
-        }
-        return groupService;
-    } 
+    private static CabServiceImpl cabService;
+    private static DriverServiceImpl driverService;
 
     public static LoginServiceImpl getLoginServiceImpl() {
         if(loginService == null) {
@@ -25,4 +11,19 @@ public class ServiceFactory {
         }
         return loginService;
     } 
+
+    public static CabServiceImpl getCabServiceImpl() {
+        if(cabService == null) {
+            cabService = new CabServiceImpl();
+        }
+        return cabService;
+    }
+
+    public static DriverServiceImpl getDriverServiceImpl() {
+        if(driverService == null) {
+            driverService = new DriverServiceImpl();
+        }
+        return driverService;
+    }
+
 }

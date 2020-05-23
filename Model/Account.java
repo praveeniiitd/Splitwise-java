@@ -1,24 +1,25 @@
 package Model;
+
 import java.util.Objects;
 
 public class Account {
-    private String username;
+    private String email;
     private String password;
 
     public Account() {
     }
 
-    public Account(String username, String password) {
-        this.username = username;
+    public Account(String email, String password) {
+        this.email = email;
         this.password = password;
     }
 
-    public String getUsername() {
-        return this.username;
+    public String getEmail() {
+        return this.email;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getPassword() {
@@ -29,8 +30,8 @@ public class Account {
         this.password = password;
     }
 
-    public Account username(String username) {
-        this.username = username;
+    public Account email(String email) {
+        this.email = email;
         return this;
     }
 
@@ -47,21 +48,19 @@ public class Account {
             return false;
         }
         Account account = (Account) o;
-        return Objects.equals(username, account.username) && Objects.equals(password, account.password);
+        return Objects.equals(email, account.email) && Objects.equals(password, account.password);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(username, password);
+        return Objects.hash(email, password);
     }
 
     @Override
     public String toString() {
         return "{" +
-            " username='" + getUsername() + "'" +
+            " email='" + getEmail() + "'" +
             ", password='" + getPassword() + "'" +
             "}";
     }
-
-
 }

@@ -2,102 +2,97 @@ package Service;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 
 import Model.*;
 
 
 public class LoginServiceImpl implements LoginService {
-    private Map<String, Customer> activeCustomers = new HashMap<String,Customer>();
+    private Map<String, Rider> activeRiders = new HashMap<String,Rider>();
+    private Map<String, Driver> activeDrivers = new HashMap<String,Driver>();
     
-    public boolean signUp(Customer customer) {
-        if(!validateParams(customer)) {
-            System.out.println("Invalid customer data.");
+    public boolean signUpRider(Rider rider) {
+        if(!validateParams(rider.getAccount())) {
+            System.out.println("Invalid login credentials provided.");
             return false;
         }
-        if(activeCustomers.containsKey(customer.getEmail())) {
+        if(activeRiders.containsKey(rider.getAccount().getEmail())) {
             System.out.println("Email is already registered for another user. Please use different email id");
             return false;
         }
 
-        activeCustomers.put(customer.getEmail(), customer);
-        System.out.println("Customer signed up succesfully : Name : " + customer.getName());
+        activeRiders.put(rider.getAccount().getEmail(), rider);
+        System.out.println("Rider signed up succesfully : Name : " + rider.getName());
         return true;
     }
 
-    public boolean validateParams(Customer customer) {
-        if(customer.getEmail() == null || customer.getPassword() == null) {
+    public boolean signUpDriver(Driver driver) {
+        if(!validateParams(driver.getAccount())) {
+            System.out.println("Invalid login credentials provided.");
+            return false;
+        }
+        if(activeDrivers.containsKey(driver.getAccount().getEmail())) {
+            System.out.println("Email is already registered for another user. Please use different email id");
+            return false;
+        }
+
+        activeDrivers.put(driver.getAccount().getEmail(), driver);
+        System.out.println("Driver signed up succesfully : Name : " + driver.getName());
+        return true;
+    }
+
+    public boolean validateParams(Account account) {
+        if(account.getEmail() == null || account.getPassword() == null) {
             return false;
         }       
         return true;
     }
 
-    public Customer login(String email, String password) {
-        Customer customer = new Customer();
-        customer.setEmail(email);
-        customer.setPassword(password);
-        if(!validateParams(customer)) {
-            System.out.println("Invalid customer data.");
+    public Rider loginRider(String email, String password) {
+        Rider rider = new Rider();
+        rider.getAccount().setEmail(email);
+        rider.getAccount().setPassword(password);
+        if(!validateParams(rider.getAccount())) {
+            System.out.println("Invalid credentials");
             return null;
         }
 
-        if(!activeCustomers.containsKey(customer.getEmail())) {
+        if(!activeRiders.containsKey(rider.getAccount().getEmail())) {
             System.out.println("Email doesn't exist. Kindly sign up.");
             return null;
         }
-        Customer systemCustomer = activeCustomers.get(customer.getEmail());
-        if(!systemCustomer.getPassword().equals(password)) {
+        rider = activeRiders.get(email);
+        if(!rider.getAccount().getPassword().equals(password)) {
             System.out.println("Invalid credentials");
         }
         else {
-            return systemCustomer;
+            return rider;
         }
         return null;
     }
 
+    public Driver loginDriver(String email, String password) {
+        Driver driver = new Driver();
+        driver.getAccount().setEmail(email);
+        driver.getAccount().setPassword(password);
+        if(!validateParams(driver.getAccount())) {
+            System.out.println("Invalid credentials");
+            return null;
+        }
+
+        if(!activeDrivers.containsKey(driver.getAccount().getEmail())) {
+            System.out.println("Email doesn't exist. Kindly sign up.");
+            return null;
+        }
+        driver = activeDrivers.get(email);
+        if(!driver.getAccount().getPassword().equals(password)) {
+            System.out.println("Invalid credentials");
+        }
+        else {
+            return driver;
+        }
+        return null;
+    }
 
     public LoginServiceImpl() {
     }
-
-
-    public LoginServiceImpl(Map<String,Customer> activeCustomers) {
-        this.activeCustomers = activeCustomers;
-    }
-
-    public Map<String,Customer> getActiveCustomers() {
-        return this.activeCustomers;
-    }
-
-    public void setActiveCustomers(Map<String,Customer> activeCustomers) {
-        this.activeCustomers = activeCustomers;
-    }
-
-    public LoginServiceImpl activeCustomers(Map<String,Customer> activeCustomers) {
-        this.activeCustomers = activeCustomers;
-        return this;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (o == this)
-            return true;
-        if (!(o instanceof LoginServiceImpl)) {
-            return false;
-        }
-        LoginServiceImpl loginServiceImpl = (LoginServiceImpl) o;
-        return Objects.equals(activeCustomers, loginServiceImpl.activeCustomers);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hashCode(activeCustomers);
-    }
-
-    @Override
-    public String toString() {
-        return "{" +
-            " activeCustomers='" + getActiveCustomers() + "'" +
-            "}";
-    }
-
 }

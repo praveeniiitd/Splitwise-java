@@ -1,6 +1,6 @@
 package Model;
 
-public enum GroupStatusEnum {
+public enum DriverStatusEnum {
     ACTIVE,
     INACTIVE,
     CLOSED,
