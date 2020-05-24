@@ -1,4 +1,4 @@
-package Uber.Model;
+package Model;
 
 import java.util.Objects;
 

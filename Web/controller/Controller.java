@@ -1,5 +1,4 @@
-package Controller;
-
+package controller;
 import java.util.Scanner;
 import Model.*;
 import Service.*;

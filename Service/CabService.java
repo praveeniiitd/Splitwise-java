@@ -1,8 +1,6 @@
-package Service;
+
 
 import java.util.Collection;
-
-import Model.*;
 
 public interface CabService {
     public Collection<Cab> allCabs();
